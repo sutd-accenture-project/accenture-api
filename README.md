@@ -3,5 +3,7 @@ Backend for the Accenture modern ticket system
 
 Dependences:
 - ExpressJS
-- Bluebird
+- bluebird
 - pg-promise
+
+To run, go to root directory and type "npm start" in the terminal.
