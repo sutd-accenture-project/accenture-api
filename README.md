@@ -6,4 +6,8 @@ Dependences:
 - bluebird
 - pg-promise
 
-To run, go to root directory and type "npm start" in the terminal.
+## Steps
+1) Install PostgreSQL.
+2) Build SQL "test" database and table with test.sql. (In Linux, command is 'psql postgres *username* < test.sql')
+3) To run ExpressJS server, go to root directory and type "npm start" in the terminal.
+4) Send data to PostgreSQL database through ExpressJS server in command line with 'curl --data "name=test&email=test@test.com&contact=test@test.com&topic=test&message=test" "http://*server:post*/*routes*" '
