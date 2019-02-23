@@ -4,6 +4,8 @@ Backend for the Accenture modern ticket system
 Dependences:
 - ExpressJS
 - bluebird
+- Knex.js
+- nodemon
 - pg-promise
 
 ## Steps
