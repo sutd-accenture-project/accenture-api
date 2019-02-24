@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var auth = require('./auth');
 
 var app = express();
 
@@ -16,9 +17,11 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+// secret used to encrypt cookie
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/auth', auth);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
