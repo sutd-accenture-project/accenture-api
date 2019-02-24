@@ -3,13 +3,20 @@ Backend for the Accenture modern ticket system
 
 Dependences:
 - ExpressJS
-- bluebird
 - Knex.js
 - nodemon
-- pg-promise
+- pg
+- bcrypt
 
 ## Steps
-1) Install PostgreSQL.
-2) Build SQL "test" database and table with test.sql in root directory. (In Linux, the command is 'psql postgres *username* < test.sql')
-3) To run ExpressJS server, go to root directory and type "npm start" in the terminal.
-4) Send data to "test1" table in "test" database through ExpressJS server in command line with 'curl --data "name=test&email=test@test.com&contact=test@test.com&topic=test&message=test" "http://*server*:*port*/*route*" '
+1) Install PostgreSQL, Knex.js and bcrypt.
+2) Create accounts and accounts_test databases.
+3) Change settings in knexfile.js in root directory.
+3) Run "knex migrate:latest" in the terminal.
+4) To run ExpressJS server, go to root directory and type "npm start" in the terminal.
+5) Sign up by sending data to "user" table in "accounts" database through the ExpressJS server in terminal with 'curl --data "email=test@test.com&password=12345678" "http://*server*:*port*/auth/signup" '
+6) Log in by sending data to "user" table in "accounts" database through the ExpressJS server in terminal with 'curl --data "email=test@test.com&password=12345678" "http://*server*:*port*/auth/login" '
+
+## Tutorials
+- Knex.js: http://perkframework.com/v1/guides/database-migrations-knex.html
+- ExpressJS: https://expressjs.com/en/starter/installing.html
