@@ -7,9 +7,10 @@ Dependences:
 - nodemon
 - pg
 - bcrypt
+- express-brute
 
 ## Steps
-1) Install PostgreSQL, Knex.js and bcrypt.
+1) Install PostgreSQL, Knex.js, bcrypt and express-brute.
 2) Create accounts and accounts_test databases.
 3) Change settings in knexfile.js in root directory.
 3) Run "knex migrate:latest" in the terminal.
@@ -20,4 +21,5 @@ Dependences:
 ## Tutorials
 - Knex.js: http://perkframework.com/v1/guides/database-migrations-knex.html
 - ExpressJS: https://expressjs.com/en/starter/installing.html
+- expess-brute: https://www.npmjs.com/package/express-brute
 - System: https://www.youtube.com/watch?v=H7qkTzxk_0I&t=756s
