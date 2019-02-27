@@ -8,9 +8,12 @@ Dependences:
 - pg
 - bcrypt
 - express-brute
+- cors
+- passport
+- jsonwebtoken
 
 ## Steps
-1) Install PostgreSQL, Knex.js, bcrypt and express-brute.
+1) Install dependencies.
 2) Create accounts and accounts_test databases.
 3) Change settings in knexfile.js in root directory.
 3) Run "knex migrate:latest" in the terminal.

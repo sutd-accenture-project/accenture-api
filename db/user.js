@@ -11,5 +11,7 @@ module.exports = {
 		return knex('user').insert(user, 'id').then(ids =>{
 			return ids[0];
 		});
-	}
+	},
+	insertTicket: function(email,ticket){
+		return knex('user').where({email: email}).insert({tickets: ticket});
 }

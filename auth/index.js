@@ -1,5 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 const router = express.Router();
 
@@ -10,12 +12,6 @@ var store = new ExpressBrute.MemoryStore(); // stores state locally, don't use t
 var bruteforce = new ExpressBrute(store);
 
 // Route paths are prepended with /auth
-
-router.get('/login', (req,res)=>{
-	res.json({
-		message: 'login'
-	});
-});
 
 // Users can login to the app with valid email/password
 // Users cannot login to the app with a blank or incorrect email
@@ -49,9 +45,9 @@ function validatePassword(password){
 }
 
 router.post('/signup', 	bruteforce.prevent, (req,res,next)=>{
-	if(validateEmail(req.body.email) && validatePassword(req.body.password)){
+	if(validateEmail(req.body.registerEmail) && validatePassword(req.body.registerPassword)){
 		User
-			.getOneByEmail(req.body.email.toLowerCase())
+			.getOneByEmail(req.body.registerEmail.toLowerCase())
 			.then(user=>{
 				console.log('user', user);
 				// if user not found
@@ -59,11 +55,11 @@ router.post('/signup', 	bruteforce.prevent, (req,res,next)=>{
 					// this is a unique email
 					// hash password
 					// redirect
-					bcrypt.hash(req.body.password, 10)
+					bcrypt.hash(req.body.registerPassword, 10)
 						.then((hash) =>{
 							// insert user into db
 							const user = {
-								email: req.body.email.toLowerCase(),
+								email: req.body.registerEmail.toLowerCase(),
 								password: hash,
 								created_at: new Date()
 							};
@@ -72,40 +68,42 @@ router.post('/signup', 	bruteforce.prevent, (req,res,next)=>{
 								.create(user)
 								.then(id =>{
 									res.json({
-										id,
+										id: id,
 										message: 'signup'
 									});
-								})
+								});
 						    });
 				} else {
 					// email in use
-					next(new Error('Email is already in use.'));
+					return res.status(422).json({error: 'Email is already in use.'});
+
 				}
 			});
 	}
-	else if (validateEmail(req.body.email)) {
+	else if (validateEmail(req.body.registerEmail)) {
 		// password is invalid
-		next(new Error('Your password is invalid. Please make sure it has at least one number and one capital letter, is at least 8 characters long and contains no spaces.'));
+		return res.status(422).json({error: 'Your password is invalid. Please make sure it has at least one number and one capital letter, is at least 8 characters long and contains no spaces.'});
 	}
-	else if (validatePassword(req.body.password)){
-		next(new Error('Your email is invalid. Please make sure it has the format test@test.com.'));
+	else if (validatePassword(req.body.registerPassword)){
+		return res.status(422).json({error: 'Your email is invalid. Please make sure it has the format test@test.com.'});
+
 	}
 	else{
-		next(new Error('Invalid email and password. Please make sure your password has at least one number and one capital letter, is at least 8 characters long and contains no spaces. Please make sure your email has the format test@test.com.'));
+		return res.status(422).json({error: 'Invalid email and password. Please make sure your password has at least one number and one capital letter, is at least 8 characters long and contains no spaces. Please make sure your email has the format test@test.com.'});
 	}
 });
 
 router.post('/login', bruteforce.prevent, (req, res, next)=>{
-	if(validateEmail(req.body.email) && validatePassword(req.body.password)){
+	if(validateEmail(req.body.loginEmail) && validatePassword(req.body.loginPassword)){
 		// check to see if in DB
 		User
-			.getOneByEmail(req.body.email.toLowerCase())
+			.getOneByEmail(req.body.loginEmail.toLowerCase())
 			.then(user =>{
 				console.log('user', user);
 				if(user){
 					// compare password with hashed password
 					bcrypt
-						.compare(req.body.password, user.password)
+						.compare(req.body.loginPassword, user.password)
 						.then(function(result){
 							// if the passwords matched
 							if(result){
@@ -126,15 +124,15 @@ router.post('/login', bruteforce.prevent, (req, res, next)=>{
 									message: 'Logged in!'
 								});
 							} else{
-								next(new Error('Invalid email or password. Please try again.'));
+								return res.status(422).json({error: 'Invalid email or password. Please try again.'});
 							}
 						});
 				} else{
-					next(new Error('Invalid email or password. Please try again.'));
+					return res.status(422).json({error: 'Invalid email or password. Please try again.'});
 				}
 			});
 	} else {
-		next(new Error('Invalid login'));
+		return res.status(422).json({error: 'Invalid email or password. Please try again.'});
 	}
 });
 
