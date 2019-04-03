@@ -4,7 +4,7 @@ const User = require('../db/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('Please enter an id.');
 });
 
 router.get('/:id', (req, res) => {
@@ -15,6 +15,22 @@ router.get('/:id', (req, res) => {
         res.json(user);
       } else {
         resError(res, 404, "User Not Found");
+      }
+    });
+  } else {
+    resError(res, 500, "Invalid ID");
+  }
+});
+
+router.post('/:id', (req, res) => {
+  if (!isNaN(req.body.email && !isNaN(req.body.ticket))) {
+    User.insertTicket(req.body.email,req.body.ticket).then(user => {
+      if (user) {
+        delete user.password;
+        delete user.is_active;
+        res.json(user);
+      } else {
+        resError(res, 404, "Ticket Invalid");
       }
     });
   } else {

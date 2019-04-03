@@ -6,6 +6,7 @@ const passport = require('passport');
 const router = express.Router();
 
 const User = require('../db/user');
+const Admin = require('../db/admin');
 var ExpressBrute = require('express-brute');
  
 var store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
@@ -44,7 +45,7 @@ function validatePassword(password){
 	return validPassword;
 }
 
-router.post('/signup', 	bruteforce.prevent, (req,res,next)=>{
+router.post('/user/signup', bruteforce.prevent, (req,res,next)=>{
 	if(validateEmail(req.body.registerEmail) && validatePassword(req.body.registerPassword)){
 		User
 			.getOneByEmail(req.body.registerEmail.toLowerCase())
@@ -93,7 +94,7 @@ router.post('/signup', 	bruteforce.prevent, (req,res,next)=>{
 	}
 });
 
-router.post('/login', bruteforce.prevent, (req, res, next)=>{
+router.post('/user/login', bruteforce.prevent, (req, res, next)=>{
 	if(validateEmail(req.body.loginEmail) && validatePassword(req.body.loginPassword)){
 		// check to see if in DB
 		User
@@ -121,6 +122,49 @@ router.post('/login', bruteforce.prevent, (req, res, next)=>{
 								res.json({
 									result,
 									id: user.id,
+									message: 'Logged in!'
+								});
+							} else{
+								return res.status(422).json({error: 'Invalid email or password. Please try again.'});
+							}
+						});
+				} else{
+					return res.status(422).json({error: 'Invalid email or password. Please try again.'});
+				}
+			});
+	} else {
+		return res.status(422).json({error: 'Invalid email or password. Please try again.'});
+	}
+});
+
+router.post('/admin/login', bruteforce.prevent, (req, res, next)=>{
+	if(validateEmail(req.body.loginEmail) && validatePassword(req.body.loginPassword)){
+		// check to see if in DB
+		Admin
+			.getOneByEmail(req.body.loginEmail.toLowerCase())
+			.then(admin =>{
+				console.log('admin', admin);
+				if(admin){
+					// compare password with hashed passwords
+					bcrypt
+						.compare(req.body.loginPassword, admin.password)
+						.then(function(result){
+							// if the passwords matched
+							if(result){
+								const isSecure = req.app.get('env') != 'development';
+								// setting the 'set-cookie' header
+								res.cookie('admin_id', admin.id, {
+									// best practices shown
+									// cookies are HTTPOnly -> accessible only by web server
+									httpOnly: true,
+									// cookies are encrypted
+									signed: true,
+									// cookies are secure when in production, when we have HTTPS
+									secure: isSecure
+								});
+								res.json({
+									result,
+									id: admin.id,
 									message: 'Logged in!'
 								});
 							} else{

@@ -13,6 +13,6 @@ module.exports = {
 		});
 	},
 	insertTicket: function(email,ticket){
-		return knex('user').where({email: email}).insert({tickets: ticket});
+		return knex('user').where({email, email}).update({tickets: ticket});
 	}
 }
