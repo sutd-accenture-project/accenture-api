@@ -62,7 +62,7 @@ router.post('/user/signup', bruteforce.prevent, (req,res,next)=>{
 							const user = {
 								email: req.body.registerEmail.toLowerCase(),
 								password: hash,
-								created_at: new Date()
+								date_created: new Date()
 							};
 
 							User
@@ -70,7 +70,7 @@ router.post('/user/signup', bruteforce.prevent, (req,res,next)=>{
 								.then(id =>{
 									res.json({
 										id: id,
-										message: 'signup'
+										message: 'user signup'
 									});
 								});
 						    });
@@ -136,6 +136,57 @@ router.post('/user/login', bruteforce.prevent, (req, res, next)=>{
 		return res.status(422).json({error: 'Invalid email or password. Please try again.'});
 	}
 });
+
+
+router.post('/admin/signup', bruteforce.prevent, (req,res,next)=>{
+	if(validateEmail(req.body.registerEmail) && validatePassword(req.body.registerPassword)){
+		Admin
+			.getOneByEmail(req.body.registerEmail.toLowerCase())
+			.then(admin=>{
+				console.log('admin', admin);
+				// if user not found
+				if(!admin){
+					// this is a unique email
+					// hash password
+					// redirect
+					bcrypt.hash(req.body.registerPassword, 10)
+						.then((hash) =>{
+							// insert user into db
+							const admin = {
+								email: req.body.registerEmail.toLowerCase(),
+								password: hash,
+								date_created: new Date()
+							};
+
+							Admin
+								.create(admin)
+								.then(id =>{
+									res.json({
+										id: id,
+										message: 'admin signup'
+									});
+								});
+						    });
+				} else {
+					// email in use
+					return res.status(422).json({error: 'Email is already in use.'});
+
+				}
+			});
+	}
+	else if (validateEmail(req.body.registerEmail)) {
+		// password is invalid
+		return res.status(422).json({error: 'Your password is invalid. Please make sure it has at least one number and one capital letter, is at least 8 characters long and contains no spaces.'});
+	}
+	else if (validatePassword(req.body.registerPassword)){
+		return res.status(422).json({error: 'Your email is invalid. Please make sure it has the format test@test.com.'});
+
+	}
+	else{
+		return res.status(422).json({error: 'Invalid email and password. Please make sure your password has at least one number and one capital letter, is at least 8 characters long and contains no spaces. Please make sure your email has the format test@test.com.'});
+	}
+});
+
 
 router.post('/admin/login', bruteforce.prevent, (req, res, next)=>{
 	if(validateEmail(req.body.loginEmail) && validatePassword(req.body.loginPassword)){

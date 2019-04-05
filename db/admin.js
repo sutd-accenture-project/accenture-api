@@ -11,5 +11,8 @@ module.exports = {
 		return knex('admin').insert(admin, 'id').then(ids =>{
 			return ids[0];
 		});
+	},
+	getAll: function(){
+		return knex('admin');
 	}
 }

@@ -4,7 +4,9 @@ const Admin = require('../db/admin');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('Please enter an id.');
+  Admin.getAll().then(admins => {
+      res.json(admins);
+    });
 });
 
 router.get('/:id', (req, res) => {
