@@ -40,7 +40,7 @@ router.get('/fake/tix', function(req, res, next) {
 });
 
 router.get('/fake/tix/example', function(req, res, next) {
-  res.json({
+  res.json([{
     id: "1",
     subject: "Help pls",
     message: "Need help!",
@@ -62,7 +62,7 @@ router.get('/fake/tix/example', function(req, res, next) {
     unsolved:false,
     date_submitted: "5/4/2019",
     admin_id: "2"
-  });
+  }]);
 });
 
 function resError(res, statusCode, message) {
