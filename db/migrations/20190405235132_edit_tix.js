@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.table('admin_department', table =>{
+  return knex.schema.table('tickets', table =>{
   	table.dropColumn('is_active');
   	table.dropColumn('tickets');
   	table.dropColumn('password');
@@ -16,7 +16,7 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.table('admin_department', table =>{
+  return knex.schema.table('tickets', table =>{
   	table.boolean('is_active');
   	table.text('tickets');
   	table.text('password');
