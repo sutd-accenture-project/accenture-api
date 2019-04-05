@@ -39,27 +39,29 @@ router.get('/fake/tix', function(req, res, next) {
   });
 });
 
-router.get('/fake/new', function(req, res, next) {
+router.get('/fake/tix/example', function(req, res, next) {
   res.json({
-  	id: "1",
-  	name: "John",
-  	tix: "3"
-  });
-});
-
-router.get('/fake/urgent', function(req, res, next) {
-  res.json({
-  	id: "1",
-  	name: "John",
-  	tix: "4"
-  });
-});
-
-router.get('/fake/priority', function(req, res, next) {
-  res.json({
-  	id: "1",
-  	name: "John",
-  	tix: "2"
+    id: "1",
+    subject: "Help pls",
+    message: "Need help!",
+    requester: "Kenneth",
+    user_id: "1",
+    email:"test@gmail.com",
+    priority:true,
+    unsolved:true,
+    date_submitted: "5/4/2019",
+    admin_id: "2"
+  },{
+    id: "2",
+    subject: "Help pls",
+    message: "Need help!",
+    requester: "Kenneth",
+    user_id: "3",
+    email:"test@gmail.com",
+    priority:false,
+    unsolved:false,
+    date_submitted: "5/4/2019",
+    admin_id: "2"
   });
 });
 
