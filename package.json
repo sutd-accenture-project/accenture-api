@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",
@@ -23,5 +23,12 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
+  },
+  "engines":{
+     // use your local version to stay consistent
+     // if you want to push a newer node version, update your local node version
+     // use nvm for the best way to handle local node versions
+    "node": "8.10.0",
+    "npm": "6.9.0"
   }
 }

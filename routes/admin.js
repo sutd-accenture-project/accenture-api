@@ -21,6 +21,48 @@ router.get('/:id', (req, res) => {
   }
 });
 
+router.get('/fake/fake', function(req, res, next) {
+  res.json({
+  	id: "1",
+  	name: "John"
+  });
+});
+
+router.get('/fake/tix', function(req, res, next) {
+  res.json({
+  	id: "1",
+  	name: "John",
+  	unsolved: "3",
+  	new: "2",
+  	urgent:"3",
+  	priority:"1"
+  });
+});
+
+router.get('/fake/new', function(req, res, next) {
+  res.json({
+  	id: "1",
+  	name: "John",
+  	tix: "3"
+  });
+});
+
+router.get('/fake/urgent', function(req, res, next) {
+  res.json({
+  	id: "1",
+  	name: "John",
+  	tix: "4"
+  });
+});
+
+router.get('/fake/priority', function(req, res, next) {
+  res.json({
+  	id: "1",
+  	name: "John",
+  	tix: "2"
+  });
+});
+
 function resError(res, statusCode, message) {
   res.status(statusCode);
   res.json({message});
