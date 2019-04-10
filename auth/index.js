@@ -45,7 +45,7 @@ function validatePassword(password){
 	return validPassword;
 }
 
-router.post('/user/signup', bruteforce.prevent, (req,res,next)=>{
+router.post('/user/register', bruteforce.prevent, (req,res,next)=>{
 	if(validateEmail(req.body.registerEmail) && validatePassword(req.body.registerPassword)){
 		User
 			.getOneByEmail(req.body.registerEmail.toLowerCase())
@@ -60,9 +60,10 @@ router.post('/user/signup', bruteforce.prevent, (req,res,next)=>{
 						.then((hash) =>{
 							// insert user into db
 							const user = {
+								firstName: req.body.firstName,
+								lastName: req.body.lastName,
 								email: req.body.registerEmail.toLowerCase(),
-								password: hash,
-								date_created: new Date()
+								password: hash
 							};
 
 							User
@@ -138,7 +139,7 @@ router.post('/user/login', bruteforce.prevent, (req, res, next)=>{
 });
 
 
-router.post('/admin/signup', bruteforce.prevent, (req,res,next)=>{
+router.post('/admin/register', bruteforce.prevent, (req,res,next)=>{
 	if(validateEmail(req.body.registerEmail) && validatePassword(req.body.registerPassword)){
 		Admin
 			.getOneByEmail(req.body.registerEmail.toLowerCase())

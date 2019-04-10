@@ -3,9 +3,9 @@ var router = express.Router();
 const User = require('../db/user');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+/*router.get('/', function(req, res, next) {
   res.send('Please enter an id.');
-});
+});*/
 
 router.get('/:id', (req, res) => {
   if (!isNaN(req.params.id)) {
@@ -22,12 +22,12 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/:id', (req, res) => {
+router.post('/:id/requests', (req, res) => {
   if (!isNaN(req.body.email && !isNaN(req.body.ticket))) {
+    // check email to see if an account has been created
     User.insertTicket(req.body.email,req.body.ticket).then(user => {
       if (user) {
         delete user.password;
-        delete user.is_active;
         res.json(user);
       } else {
         resError(res, 404, "Ticket Invalid");

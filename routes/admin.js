@@ -23,21 +23,12 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.get('/fake/fake', function(req, res, next) {
+router.get('/:id/dashboard', function(req, res, next) {
   res.json({
-  	id: "1",
-  	name: "John"
-  });
-});
-
-router.get('/fake/tix', function(req, res, next) {
-  res.json({
-  	id: "1",
-  	name: "John",
-  	unsolved: "3",
-  	new: "2",
-  	urgent:"3",
-  	priority:"1"
+    new: "3",
+    urgent: "2",
+    unsolved:"3",
+    priority:"1"
   });
 });
 
