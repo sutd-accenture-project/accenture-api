@@ -16,6 +16,9 @@ module.exports = {
 		return knex('admin');
 	},
 	getUnsolvedTickets: function(id){
-		return knex('tickets').where('admin_id', id).select('priority', 'unsolved');
+		return knex('tickets').where('admin_id',id).where('unsolved', true);
+	},
+	getUrgentTickets: function(id){
+		return knex('tickets').where('admin_id',id).where('priority',true);
 	}
 }

@@ -13,11 +13,8 @@ module.exports = {
 		});
 	},
 	insertTicket: function(userTicket){
-		/*const id_int = parseInt(id);
-		const admin_id_int = parseInt(admin_id);
-		var priority_bool = (priority == 'true');
-		var unsolved_bool = (unsolved == 'true');
-		*/
-		return knex('tickets').insert(userTicket);
+		return knex('tickets').insert(userTicket, 'user_id').then(id =>{
+			return id[0];
+		});
 	}
 }
