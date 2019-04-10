@@ -25,16 +25,20 @@ router.get('/:id', (req, res) => {
 router.post('/:id/requests', (req, res) => {
   if (!isNaN(req.body.email && !isNaN(req.body.ticket))) {
     // check email to see if an account has been created
-    User.insertTicket(req.body.email,req.body.ticket).then(user => {
-      if (user) {
-        delete user.password;
-        res.json(user);
-      } else {
-        resError(res, 404, "Ticket Invalid");
+    User.getOneByEmail(req.body.email).then(userInDB=>{
+      if(userInDB){
+        User.insertTicket(req.body.email,req.body.ticket).then(user => {
+          if (user) {
+            delete user.password;
+            res.json(user);
+          } else {
+            resError(res, 404, "Ticket Invalid");
+          }
+        });
       }
-    });
+    })
   } else {
-    resError(res, 500, "Invalid ID");
+    resError(res, 500, "Please enter an email address or ticket.");
   }
 });
 

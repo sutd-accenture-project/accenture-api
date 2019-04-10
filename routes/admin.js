@@ -25,6 +25,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/dashboard', function(req, res, next) {
   res.json({
+    name: "Dwayne",
     new: "3",
     urgent: "2",
     unsolved:"3",
@@ -32,7 +33,7 @@ router.get('/:id/dashboard', function(req, res, next) {
   });
 });
 
-router.get('/fake/tix/example', function(req, res, next) {
+router.get('/:id/faketix', function(req, res, next) {
   res.json([{
     id: "1",
     subject: "Help pls",

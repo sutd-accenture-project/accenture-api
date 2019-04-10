@@ -5,7 +5,7 @@ const User = require('../db/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Accenture API' });
 });
 
 router.post('/queries', function(req, res, next){
