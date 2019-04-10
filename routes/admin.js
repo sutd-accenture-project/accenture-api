@@ -33,13 +33,15 @@ router.get('/:id/dashboard', function(req, res, next) {
   });
 });
 
-router.get('/:id/faketix', function(req, res, next) {
+// gets all unsolved tickets
+router.get('/1/requests/urgent', function(req, res, next) {
   res.json([{
     id: "1",
     subject: "Help pls",
     message: "Need help!",
     requester: "Kenneth",
     user_id: "1",
+    topic: ["Admin", "Account"],
     email:"test@gmail.com",
     priority:true,
     unsolved:true,
@@ -51,6 +53,7 @@ router.get('/:id/faketix', function(req, res, next) {
     message: "Need help!",
     requester: "Kenneth",
     user_id: "3",
+    topic: ["Account"],
     email:"test@gmail.com",
     priority:false,
     unsolved:false,

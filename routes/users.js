@@ -22,7 +22,8 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/:id/requests', (req, res) => {
+// submit tickets
+router.post('/requests', (req, res) => {
   if (!isNaN(req.body.email && !isNaN(req.body.ticket))) {
     // check email to see if an account has been created
     User.getOneByEmail(req.body.email).then(userInDB=>{
@@ -35,11 +36,24 @@ router.post('/:id/requests', (req, res) => {
             resError(res, 404, "Ticket Invalid");
           }
         });
+      }else{
+        User.create(req.body.email)
       }
     })
   } else {
     resError(res, 500, "Please enter an email address or ticket.");
   }
+});
+
+router.post('/queries', function(req, res, next){
+  User
+  .insertTicket(req.body.email, req.body.heading)
+  .then(user=>{
+    console.log('user', user);
+    res.json({
+      message: 'Ticket submitted!'
+    });
+  });
 });
 
 function resError(res, statusCode, message) {
