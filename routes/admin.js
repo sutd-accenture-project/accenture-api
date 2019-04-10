@@ -37,7 +37,7 @@ router.get('/:id/dashboard', function(req, res, next) {
 router.get('/1/requests/urgent', function(req, res, next) {
   res.json([{
     id: "1",
-    subject: "Help pls",
+    subject: "Help pls - nigerian prince",
     message: "Need help!",
     requester: "Kenneth",
     user_id: "1",

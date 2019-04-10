@@ -28,12 +28,20 @@ router.post('/:id/requests', (req, res) => {
     // check email to see if an account has been created
     User.getOneByEmail(req.body.email).then(userInDB=>{
       if(userInDB){
-        User.insertTicket(req.body.subject,req.params.id,req.body.priority,req.body.unsolved,req.body.admin_id,new Date()).then(user => {
+        const userTicket ={
+          subject: req.body.subject,
+          user_id: req.params.id,
+          priority: req.body.priority,
+          unsolved: req.body.unsolved,
+          admin_id: admin_id,
+          date_created: new Date()
+        }
+        User.insertTicket(userTicket).then(user => {
           if (user) {
             delete user.password;
             res.json({
               user: user,
-              expected: true
+              message: "Ticket submitted!"
             });
           } else {
             resError(res, 404, "Ticket Invalid");
@@ -44,17 +52,6 @@ router.post('/:id/requests', (req, res) => {
   } else {
     resError(res, 500, "Please enter ticket details.");
   }
-});
-
-router.post('/queries', function(req, res, next){
-  User
-  .insertTicket(req.body.email, req.body.subject,req.body.user_id,req.body.priority,req.body.unsolved,req.body.admin_id)
-  .then(user=>{
-    console.log('user', user);
-    res.json({
-      message: 'Ticket submitted!'
-    });
-  });
 });
 
 function resError(res, statusCode, message) {
