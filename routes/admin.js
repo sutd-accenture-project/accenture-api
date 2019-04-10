@@ -24,13 +24,13 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/:id/dashboard', function(req, res, next) {
-  res.json({
-    name: "Dwayne",
-    new: "3",
-    urgent: "2",
-    unsolved:"3",
-    priority:"1"
-  });
+  if (!isNaN(req.params.id)){
+    Admin.getUnsolvedTickets(req.params.id).then(tickets=>{
+      res.json({
+        all: tickets
+        })
+    });
+  }
 });
 
 // gets all unsolved tickets
@@ -50,7 +50,7 @@ router.get('/1/requests/urgent', function(req, res, next) {
   },{
     id: "2",
     subject: "Help pls",
-    message: "Need help!",
+    message: "Need help please!",
     requester: "Kenneth",
     user_id: "3",
     topic: ["Account"],
