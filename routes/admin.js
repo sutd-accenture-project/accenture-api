@@ -27,7 +27,11 @@ router.get('/:id/dashboard', function(req, res, next) {
   if (!isNaN(req.params.id)){
     Admin.getUnsolvedTickets(req.params.id).then(unsolvedTickets=>{
       res.json({
-        all: unsolvedTickets
+        //all: unsolvedTickets
+        unsolved: 5,
+        new: 5,
+        priority:4,
+        urgent:3
         })
     });
   }
