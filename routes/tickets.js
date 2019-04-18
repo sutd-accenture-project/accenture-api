@@ -51,6 +51,7 @@ router.post('/:id/user/response', function(req, res, next) {
 
 router.post('/:id/admin/response', function(req, res, next) {
 	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
+		console.log(details);
 		Ticket.getTicketAdminName(details[0]['admin_id']).then(adminName=>{
 			const response ={
 				  ticket_id: req.params.id,
