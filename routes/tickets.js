@@ -30,41 +30,45 @@ router.get('/:id/convo',function(req,res,next){
 });
 
 router.post('/:id/user/response', function(req, res, next) {
-    const response ={
-      ticket_id: req.params.id,
-      content: req.body.message,
-      date: new Date(),
-      admin: false,
-      user: true
-    }
-
-    Response.insertResponse(response).then(id => {
-      res.json({
-        response_id: id,
-        type: "user",
-        response: response,
-        message: "Response submitted!"
-      });
-    });
+	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
+		const response ={
+			ticket_id: req.params.id,
+			message: req.body.message,
+			name: details[0]['requester'],
+			date: new Date(),
+			role: 'user'
+		}
+		Response.insertResponse(response).then(id => {
+		    res.json({
+		        response_id: id,
+		        type: 'user',
+		        response: response,
+		        message: 'User response submitted!'
+		    });
+		});
+	})
 });
 
 router.post('/:id/admin/response', function(req, res, next) {
-    const response ={
-      ticket_id: req.params.id,
-      content: req.body.message,
-      date: new Date(),
-      admin: true,
-      user: false
-    }
-
-    Response.insertResponse(response).then(id => {
-      res.json({
-        response_id: id,
-        type: "admin",
-        response: response,
-        message: "Response submitted!"
-      });
-    });
+	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
+		Ticket.getTicketAdminName(details[0]['admin_id']).then(adminName=>{
+			const response ={
+				  ticket_id: req.params.id,
+			      message: req.body.message,
+			      name: adminName[0]['name'],
+			      date: new Date(),
+			      role: 'admin'
+			}
+		    Response.insertResponse(response).then(id => {
+		      res.json({
+		        response_id: id,
+		        type: 'admin',
+		        response: response,
+		        message: 'Admin response submitted!'
+		      });
+		    });
+		})
+	})
 });
 
 function resError(res, statusCode, message) {

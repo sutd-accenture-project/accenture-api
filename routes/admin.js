@@ -84,67 +84,7 @@ router.get('/:id/requests/new', function(req, res, next) {
   //   unsolved:true,
   //   date_submitted: "1/4/2019",
   //   admin_id: 2
-  // },{
-  //   id: 2,
-  //   subject: "Help pls",
-  //   message: "Need help please!",
-  //   requester: "Kenneth",
-  //   user_id: 3,
-  //   topic: ["Account"],
-  //   email:"test@gmail.com",
-  //   priority:false,
-  //   unsolved:false,
-  //   date_submitted: "2/4/2019",
-  //   admin_id: 2
-  // },{
-  //   id: 3,
-  //   subject: "Help pls fuck",
-  //   message: "Need help please yooo!",
-  //   requester: "Kenneth",
-  //   user_id: 3,
-  //   topic: ["Account"],
-  //   email:"test@gmail.com",
-  //   priority:false,
-  //   unsolved:false,
-  //   date_submitted: "3/4/2019",
-  //   admin_id: 2
-  // },{
-  //   id: 4,
-  //   subject: "Help pls MISTER",
-  //   message: "Need help bitch!",
-  //   requester: "Kenneth",
-  //   user_id: 3,
-  //   topic: ["Account"],
-  //   email:"test@gmail.com",
-  //   priority:false,
-  //   unsolved:false,
-  //   date_submitted: "4/4/2019",
-  //   admin_id: 2
-  // },{
-  //   id: 5,
-  //   subject: "Help pls five",
-  //   message: "Need help fantastic baby!",
-  //   requester: "Kenneth",
-  //   user_id: 3,
-  //   topic: ["Account"],
-  //   email:"test@gmail.com",
-  //   priority:false,
-  //   unsolved:false,
-  //   date_submitted: "9/4/2019",
-  //   admin_id: 2
-  // },{
-  //   id: 6,
-  //   subject: "Help pls nigg",
-  //   message: "Need help please chigga!",
-  //   requester: "Kenneth",
-  //   user_id: 3,
-  //   topic: ["Account"],
-  //   email:"test@gmail.com",
-  //   priority:false,
-  //   unsolved:false,
-  //   date_submitted: "10/4/2019",
-  //   admin_id: 2
-  // }]);
+  // }
 });
 
 function resError(res, statusCode, message) {

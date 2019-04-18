@@ -9,5 +9,11 @@ module.exports = {
 	},
 	assignTicket: function(ticket_id,admin__id){
 		return knex('tickets').where('id',ticket_id).update({admin_id: admin__id});
+	},
+	getTicketUserNameAdminID: function(ticket_id){
+		return knex('tickets').where('id',ticket_id).select('requester','admin_id');
+	},
+	getTicketAdminName: function(admin_id){
+		return knex('admin').where('id', admin_id).select('name');
 	}
 }
