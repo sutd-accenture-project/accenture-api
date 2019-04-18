@@ -4,6 +4,9 @@ module.exports = {
 	getOne: function(id) {
 		return knex('user').where('id', id).first();
 	},
+	getAll: function(){
+		return knex('user');
+	},
 	getOneByEmail: function (email){
 		return knex('user').where('email', email).first();
 	},
@@ -13,8 +16,11 @@ module.exports = {
 		});
 	},
 	insertTicket: function(userTicket){
-		return knex('tickets').insert(userTicket, 'user_id').then(id =>{
+		return knex('tickets').insert(userTicket, 'id').then(id =>{
 			return id[0];
 		});
+	},
+	getName: function(id){
+		return knex('user').where('id',id).select('name');
 	}
 }

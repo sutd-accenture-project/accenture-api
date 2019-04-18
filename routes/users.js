@@ -3,9 +3,11 @@ var router = express.Router();
 const User = require('../db/user');
 
 /* GET users listing. */
-/*router.get('/', function(req, res, next) {
-  res.send('Please enter an id.');
-});*/
+router.get('/', function(req, res, next) {
+  User.getAll().then(users => {
+      res.json(users);
+    });
+});
 
 router.get('/:id', (req, res) => {
   if (!isNaN(req.params.id)) {
@@ -26,23 +28,30 @@ router.get('/:id', (req, res) => {
 router.post('/:id/requests', (req, res) => {
   if (req.body.subject != '') {
     const id_int = parseInt(req.params.id);
-    const admin_id_int = parseInt(req.body.admin_id);
     var priority_bool = (req.body.priority == 'true');
     var unsolved_bool = (req.body.unsolved == 'true');
+    User.getName(req.params.id).then(userName=>{
+      const name = userName[0]['name'];
 
-    const userTicket ={
-      subject: req.body.subject,
-      user_id: id_int,
-      //priority: priority_bool,
-      unsolved: unsolved_bool,
-      admin_id: admin_id_int,
-      date_created: new Date()
-    }
-    User.insertTicket(userTicket).then(id => {
-      res.json({
-        user_id: id,
-        ticket: userTicket,
-        message: "Ticket submitted!"
+      const userTicket ={
+        subject: req.body.subject,
+        message: req.body.message,
+        requester: name,    
+        user_id: id_int,
+        //email: email,
+        topic: req.body.topic,
+        priority: priority_bool,
+        unsolved: unsolved_bool,
+        admin_id: null,
+        date_created: new Date()
+      }
+
+      User.insertTicket(userTicket).then(id => {
+        res.json({
+          ticket_id: id,
+          ticket: userTicket,
+          message: "Ticket submitted!"
+        });
       });
     });
   } else {

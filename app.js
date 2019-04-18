@@ -8,7 +8,9 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-var auth = require('./auth');
+var ticketsRouter = require('./routes/tickets');
+var regRouter = require('./routes/register');
+var loginRouter = require('./routes/login');
 
 var app = express();
 
@@ -27,10 +29,12 @@ app.use(cors({
   origin: '*'
 }));
 
-app.use('/auth', auth);
+app.use('/register', regRouter);
+app.use('/login', loginRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
+app.use('/tickets', ticketsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

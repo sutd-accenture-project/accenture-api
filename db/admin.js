@@ -15,10 +15,24 @@ module.exports = {
 	getAll: function(){
 		return knex('admin');
 	},
+	getAllTickets: function(id){
+		return knex('tickets').where('admin_id', id);
+	},
 	getUnsolvedTickets: function(id){
 		return knex('tickets').where('admin_id',id).where('unsolved', true);
 	},
 	getUrgentTickets: function(id){
 		return knex('tickets').where('admin_id',id).where('priority',true);
+	},
+	getUnsolvedCount: function(id){
+		return knex('tickets').where('admin_id',id).count('unsolved',true);
+	},
+	getPriorityCount: function(id){
+		return knex('tickets').where('admin_id',id).count('priority',true);
+	},
+	getNewCount: function(id){
+		var d = new Date();
+		d.setMinutes(d.getMinutes() - 30);
+		return knex('tickets').where('admin_id',id).where('date_created', '>', d).count('date_created');
 	}
 }
