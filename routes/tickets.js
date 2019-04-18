@@ -16,7 +16,7 @@ router.get('/available',function(req,res,next){
     });
 });
 
-router.post('/:id/available',function(req,res,next){
+router.post('/:id/assign',function(req,res,next){
 	Ticket.assignTicket(req.params.id,req.body.admin_id).then(notify=>{
 		res.json(notify);
 	});
