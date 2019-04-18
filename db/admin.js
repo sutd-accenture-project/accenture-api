@@ -34,5 +34,10 @@ module.exports = {
 		var d = new Date();
 		d.setMinutes(d.getMinutes() - 30);
 		return knex('tickets').where('admin_id',id).where('date_created', '>', d).count('date_created');
+	},
+	getNewTickets: function(id){
+		var d = new Date();
+		d.setMinutes(d.getMinutes() - 30);
+		return knex('tickets').where('admin_id',id).where('date_created', '>', d);
 	}
 }

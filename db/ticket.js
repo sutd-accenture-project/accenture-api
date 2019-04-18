@@ -9,8 +9,5 @@ module.exports = {
 	},
 	assignTicket: function(ticket_id,admin__id){
 		return knex('tickets').where('id',ticket_id).update({admin_id: admin__id});
-	},
-	getDates: function(){
-		return knex('tickets').select('date_created');
 	}
 }
