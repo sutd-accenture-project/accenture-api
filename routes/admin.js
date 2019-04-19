@@ -49,7 +49,7 @@ router.get('/:id/dashboard',function(req,res,next){
             Admin.getNewCount(req.params.id).then(new_count=>{
             	Admin.getName(req.params.id).then(admin_name=>{
             		res.json({
-            			name: admin_name,
+            			name: admin_name[0]['name'],
 	                    unsolved:unsolved_count[0]['count'],
 	                    priority:priority_count[0]['count'],
 	                    urgent:priority_count[0]['count'],
