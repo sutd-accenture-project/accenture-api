@@ -5,14 +5,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 
+var app = express();
+
+app.use(cors({
+  "credentials": true,
+  "origin": '*',
+  "methods": ['GET', 'PUT', 'POST', 'OPTIONS']
+}));
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
 var ticketsRouter = require('./routes/tickets');
 var regRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,11 +30,6 @@ app.use(express.urlencoded({ extended: false }));
 // secret used to encrypt cookie
 app.use(cookieParser('sutd_istd'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors({
-  "credentials": true,
-  "origin": '*',
-  "methods": ['GET', 'PUT', 'POST', 'OPTIONS']
-}));
 
 app.use('/register', regRouter);
 app.use('/login', loginRouter);
