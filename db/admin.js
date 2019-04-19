@@ -15,6 +15,9 @@ module.exports = {
 	getAll: function(){
 		return knex('admin');
 	},
+	getName: function(id){
+		return knex('admin').where('id', id).select('name');
+	},
 	getAllTickets: function(id){
 		return knex('tickets').where('admin_id', id);
 	},

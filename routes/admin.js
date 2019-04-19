@@ -47,12 +47,15 @@ router.get('/:id/dashboard',function(req,res,next){
     Admin.getUnsolvedCount(req.params.id).then(unsolved_count=>{
         Admin.getPriorityCount(req.params.id).then(priority_count=>{
             Admin.getNewCount(req.params.id).then(new_count=>{
-                res.json({
-                    unsolved:unsolved_count[0]['count'],
-                    priority:priority_count[0]['count'],
-                    urgent:priority_count[0]['count'],
-                    new: new_count[0]['count']
-                })
+            	Admin.getName(req.params.id).then(admin_name=>{
+            		res.json({
+            			name: admin_name,
+	                    unsolved:unsolved_count[0]['count'],
+	                    priority:priority_count[0]['count'],
+	                    urgent:priority_count[0]['count'],
+	                    new: new_count[0]['count']
+	                })
+            	})
             })
         })
     })
