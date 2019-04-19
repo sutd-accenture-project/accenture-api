@@ -30,15 +30,16 @@ router.post('/:id/requests', (req, res) => {
     const id_int = parseInt(req.params.id);
     var priority_bool = (req.body.priority == 'true');
     var unsolved_bool = (req.body.unsolved == 'true');
-    User.getName(req.params.id).then(userName=>{
+    User.getNameEmail(req.params.id).then(userName=>{
       const name = userName[0]['name'];
+      const userEmail = userName[0]['email'];
 
       const userTicket ={
         subject: req.body.subject,
         message: req.body.message,
         requester: name,    
         user_id: id_int,
-        //email: email,
+        user_email: userEmail,
         topic: req.body.topic,
         priority: priority_bool,
         unsolved: unsolved_bool,

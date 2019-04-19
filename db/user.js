@@ -20,7 +20,7 @@ module.exports = {
 			return id[0];
 		});
 	},
-	getName: function(id){
-		return knex('user').where('id',id).select('name');
+	getNameEmail: function(id){
+		return knex('user').where('id',id).select('name','email');
 	}
 }
