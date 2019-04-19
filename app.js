@@ -27,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   credentials: true,
   origin: '*',
+  methods: "GET,PUT,POST,DELETE",
 }));
 
 app.use('/register', regRouter);
