@@ -25,14 +25,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('sutd_istd'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
-  credentials: true,
-  origin: '*',
+  "credentials": true,
+  "origin": '*',
+  "methods": ['GET', 'PUT', 'POST', 'OPTIONS']
 }));
-
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 app.use('/register', regRouter);
 app.use('/login', loginRouter);
