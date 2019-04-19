@@ -7,11 +7,11 @@ var cors = require('cors');
 
 var app = express();
 
-app.use(cors({
-  "credentials": true,
-  "origin": '*',
-  "methods": ['GET', 'PUT', 'POST', 'OPTIONS']
-}));
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

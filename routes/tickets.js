@@ -49,6 +49,28 @@ router.post('/:id/user/response', function(req, res, next) {
 	})
 });
 
+router.post('/:id/user/response/test', function(req, res, next) {
+	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
+		var d = new Date();
+ 		d.setDate(d.getDate()-5);
+		const response ={
+			ticket_id: req.params.id,
+			message: req.body.message,
+			name: details[0]['requester'],
+			date: d,
+			role: 'user'
+		}
+		Response.insertResponse(response).then(id => {
+		    res.json({
+		        response_id: id,
+		        type: 'user',
+		        response: response,
+		        message: 'User response submitted!'
+		    });
+		});
+	})
+});
+
 router.post('/:id/admin/response', function(req, res, next) {
 	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
 		console.log(details);
