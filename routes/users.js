@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../db/user');
+const Response = require('../db/response');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -31,27 +32,40 @@ router.post('/:id/requests', (req, res) => {
     var priority_bool = (req.body.priority == 'true');
     var unsolved_bool = (req.body.unsolved == 'true');
     User.getNameEmail(req.params.id).then(userName=>{
-      const name = userName[0]['name'];
+      const nameOfUser = userName[0]['name'];
       const userEmail = userName[0]['email'];
+      const dateSubmitted = new Date();
 
       const userTicket ={
         subject: req.body.subject,
         message: req.body.message,
-        requester: name,    
+        requester: nameOfUser,    
         user_id: id_int,
         user_email: userEmail,
         topic: req.body.topic,
         priority: priority_bool,
         unsolved: unsolved_bool,
         admin_id: null,
-        date_created: new Date()
+        date_created: dateSubmitted
       }
 
       User.insertTicket(userTicket).then(id => {
-        res.json({
+        const response ={
           ticket_id: id,
-          ticket: userTicket,
-          message: "Ticket submitted!"
+          message: req.body.message,
+          name: nameOfUser,
+          date: dateSubmitted,
+          role: 'user'
+        }
+        Response.insertResponse(response).then(r_id => {
+          res.json({
+            ticket_id: id,
+            ticket: userTicket,
+            response_id: r_id,
+            type: 'user',
+            response: response,
+            message: 'Ticket submitted!'
+          });
         });
       });
     });
