@@ -27,8 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   credentials: true,
   origin: '*',
-  methods: "GET,PUT,POST,DELETE",
 }));
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 app.use('/register', regRouter);
 app.use('/login', loginRouter);
