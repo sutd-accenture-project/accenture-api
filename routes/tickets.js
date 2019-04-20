@@ -96,6 +96,15 @@ router.post('/:id/admin/response', function(req, res, next) {
 	})
 });
 
+router.post('/:id/priority',function(req,res,next){
+	Ticket.increasePriority(req.params.id).then(priority=>{
+		res.json({
+			message: "Priority increased.",
+			result: priority
+		})
+	}
+})
+
 function resError(res, statusCode, message) {
   res.status(statusCode);
   res.json({message});
