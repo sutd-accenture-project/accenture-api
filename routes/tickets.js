@@ -102,7 +102,7 @@ router.post('/:id/priority',function(req,res,next){
 			message: "Priority increased.",
 			result: priority
 		})
-	}
+	});
 })
 
 function resError(res, statusCode, message) {
