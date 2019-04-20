@@ -75,19 +75,6 @@ router.get('/:id/requests/new', function(req, res, next) {
             new: unsolvedTickets
         })
     });
-  // res.json([{
-  //   id: 1,
-  //   subject: "Help pls - nigerian prince",
-  //   message: "Need help!",
-  //   requester: "Kenneth",
-  //   user_id: 1,
-  //   topic: ["Admin", "Account"],
-  //   email:"test@gmail.com",
-  //   priority:true,
-  //   unsolved:true,
-  //   date_submitted: "1/4/2019",
-  //   admin_id: 2
-  // }
 });
 
 function resError(res, statusCode, message) {

@@ -15,5 +15,8 @@ module.exports = {
 	},
 	getTicketAdminName: function(admin_id){
 		return knex('admin').where('id', admin_id).select('name');
+	},
+	changeTicketStatus: function(ticket_id,new_status){
+		return knex('tickets').where('id', ticket_id).update({status: new_status})
 	}
 }

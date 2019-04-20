@@ -73,7 +73,6 @@ router.post('/:id/user/response/test', function(req, res, next) {
 
 router.post('/:id/admin/response', function(req, res, next) {
 	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
-		console.log(details);
 		Ticket.getTicketAdminName(details[0]['admin_id']).then(adminName=>{
 			const response ={
 				  ticket_id: req.params.id,
@@ -83,12 +82,15 @@ router.post('/:id/admin/response', function(req, res, next) {
 			      role: 'admin'
 			}
 		    Response.insertResponse(response).then(id => {
-		      res.json({
-		        response_id: id,
-		        type: 'admin',
-		        response: response,
-		        message: 'Admin response submitted!'
-		      });
+		    	Ticket.changeTicketStatus(req.params.id,req.body.status).then(change=>{
+		    		res.json({
+				        response_id: id,
+				        type: 'admin',
+				        response: response,
+				        message: 'Admin response submitted!',
+				        status: req.body.status
+				      });
+		    	});
 		    });
 		})
 	})
