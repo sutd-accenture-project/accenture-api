@@ -31,7 +31,7 @@ module.exports = {
 		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending').count();
 	},
 	getPriorityCount: function(id){
-		return knex('tickets').where('admin_id',id).count('priority',true);
+		return knex('tickets').where('admin_id',id).where('priority',true).count();
 	},
 	getNewCount: function(id){
 		var d = new Date();
