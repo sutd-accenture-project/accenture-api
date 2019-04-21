@@ -22,5 +22,8 @@ module.exports = {
 	},
 	getNameEmail: function(id){
 		return knex('user').where('id',id).select('name','email');
+	},
+	getTickets: function(id){
+		return knex('tickets').where('user_id', id);
 	}
 }

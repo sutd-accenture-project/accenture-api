@@ -25,6 +25,12 @@ router.get('/:id', (req, res) => {
   }
 });
 
+router.get('/:id/requests', (req,res)=>{
+  User.getTickets(req.params.id).then(tickets=>{
+    res.json(tickets);
+  })
+})
+
 // submit tickets
 router.post('/:id/requests', (req, res) => {
   if (req.body.subject != '') {
