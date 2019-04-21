@@ -77,6 +77,14 @@ router.get('/:id/requests/new', function(req, res, next) {
     });
 });
 
+router.get('/:id/requests/priority',function(req,res,next){
+  Admin.getUrgentTickets(req.params.id).then(urgentTickets=>{
+    res.json({
+        urgent: urgentTickets
+    })
+  });
+})
+
 function resError(res, statusCode, message) {
   res.status(statusCode);
   res.json({message});

@@ -22,13 +22,13 @@ module.exports = {
 		return knex('tickets').where('admin_id', id);
 	},
 	getUnsolvedTickets: function(id){
-		return knex('tickets').where('admin_id',id).where('status', 'unsolved');
+		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending');
 	},
 	getUrgentTickets: function(id){
 		return knex('tickets').where('admin_id',id).where('priority',true);
 	},
 	getUnsolvedCount: function(id){
-		return knex('tickets').where('admin_id',id).count('status', 'unsolved');
+		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending').count();
 	},
 	getPriorityCount: function(id){
 		return knex('tickets').where('admin_id',id).count('priority',true);
