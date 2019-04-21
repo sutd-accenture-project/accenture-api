@@ -3,6 +3,7 @@ var router = express.Router();
 const Admin = require('../db/admin');
 const Response = require('../db/response');
 const User = require('../db/user');
+const Ticket = require('../db/ticket');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -48,13 +49,16 @@ router.get('/:id/dashboard',function(req,res,next){
         Admin.getPriorityCount(req.params.id).then(priority_count=>{
             Admin.getNewCount(req.params.id).then(new_count=>{
             	Admin.getName(req.params.id).then(admin_name=>{
-            		res.json({
-            			name: admin_name[0]['name'],
-	                    unsolved:unsolved_count[0]['count'],
-	                    priority:priority_count[0]['count'],
-	                    urgent:priority_count[0]['count'],
-	                    new: new_count[0]['count']
-	                })
+                Ticket.getAvailableCount().then(available_count=>{
+                  res.json({
+                      name: admin_name[0]['name'],
+                      unsolved:unsolved_count[0]['count'],
+                      unassigned:available_count[0]['count'],
+                      urgent:priority_count[0]['count'],
+                      new: new_count[0]['count']
+                  })
+
+                });
             	})
             })
         })

@@ -7,6 +7,9 @@ module.exports = {
 	getAvailable: function(){
 		return knex('tickets').where('admin_id',null);
 	},
+	getAvailableCount: function(){
+		return knex('tickets').where('admin_id',null).count();
+	},
 	assignTicket: function(ticket_id,admin__id){
 		return knex('tickets').where('id',ticket_id).update({admin_id: admin__id});
 	},
