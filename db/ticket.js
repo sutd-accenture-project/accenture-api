@@ -22,7 +22,7 @@ module.exports = {
 	changeTicketStatus: function(ticket_id,new_status){
 		return knex('tickets').where('id', ticket_id).update({status: new_status})
 	},
-	increasePriority: function(ticket_id){
-		return knex('tickets').where('id',ticket_id).update({priority:true})
+	setPriority: function(ticket_id,status){
+		return knex('tickets').where('id',ticket_id).update({priority:status})
 	}
 }

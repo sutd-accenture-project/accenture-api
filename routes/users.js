@@ -35,7 +35,6 @@ router.get('/:id/requests', (req,res)=>{
 router.post('/:id/requests', (req, res) => {
   if (req.body.subject != '') {
     const id_int = parseInt(req.params.id);
-    var priority_bool = (req.body.priority == 'true');
     User.getNameEmail(req.params.id).then(userName=>{
       const nameOfUser = userName[0]['name'];
       const userEmail = userName[0]['email'];
@@ -48,7 +47,7 @@ router.post('/:id/requests', (req, res) => {
         user_id: id_int,
         user_email: userEmail,
         topic: req.body.topic,
-        priority: priority_bool,
+        priority: false,
         status: 'open',
         admin_id: null,
         date_created: dateSubmitted

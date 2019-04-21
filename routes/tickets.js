@@ -97,12 +97,21 @@ router.post('/:id/admin/response', function(req, res, next) {
 });
 
 router.post('/:id/priority',function(req,res,next){
-	Ticket.increasePriority(req.params.id).then(priority=>{
-		res.json({
-			message: "Priority increased.",
-			result: priority
-		})
-	});
+	if (req.body.priority == 'true'){
+		Ticket.setPriority(req.params.id,req.body.priority).then(priority=>{
+			res.json({
+				message: "Priority set to high",
+				result: true
+			})
+		});
+	}else{
+		Ticket.setPriority(req.params.id,false).then(priority=>{
+			res.json({
+				message: "Priority set to normal",
+				result: false
+			})
+		});
+	}
 })
 
 function resError(res, statusCode, message) {
