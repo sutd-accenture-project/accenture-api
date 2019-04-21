@@ -98,7 +98,7 @@ router.post('/:id/admin/response', function(req, res, next) {
 
 router.post('/:id/priority',function(req,res,next){
 	if (req.body.priority == 'true'){
-		Ticket.setPriority(req.params.id,req.body.priority).then(priority=>{
+		Ticket.setPriority(req.params.id,true).then(priority=>{
 			res.json({
 				message: "Priority set to high",
 				result: true
