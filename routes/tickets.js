@@ -82,7 +82,7 @@ router.get('/:id/similar', (req,res,next)=>{
 				// can change distance metric if necessary
 				var dist = natural.JaroWinklerDistance(msg, unsolved_avail[i]['message'],false);
 				// min threshold for similarity
-				if (dist > 0.7){
+				if (dist > 0.5){
 					dist_array.push(dist);
 					ticket_id_array.push(unsolved_avail[i]['id']);
 				}
