@@ -42,5 +42,23 @@ module.exports = {
 		var d = new Date();
 		d.setMinutes(d.getMinutes() - 30);
 		return knex('tickets').where('admin_id',id).where('date_created', '>', d);
+	},
+	getOpenCount: function(id){
+		return knex('tickets').where('admin_id',id).where('status','open').count();
+	},
+	getPendingCount: function(id){
+		return knex('tickets').where('admin_id',id).where('status','pending').count();
+	},
+	getSolvedCount: function(id){
+		return knex('tickets').where('admin_id',id).where('status','solved').count();
+	},
+	getSolvedTickets: function(id){
+		return knex('tickets').where('admin_id',id).where('status','solved');
+	},
+	getOpenTickets:function(id){
+		return knex('tickets').where('admin_id',id).where('status','open');
+	},
+	getPendingTickets: function(id){
+		return knex('tickets').where('admin_id',id).where('status','pending');
 	}
 }

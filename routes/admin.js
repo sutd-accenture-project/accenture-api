@@ -35,14 +35,6 @@ router.get('/:id/requests', function(req,res,next){
     })
 })
 
-router.get('/:id/requests/urgent', function(req, res, next) {
-  Admin.getUrgentTickets(req.params.id).then(urgentTickets=>{
-    res.json({
-        urgent: urgentTickets
-    })
-  });
-});
-
 // tickets created less than 30 minutes before the current datetime is considered new
 router.get('/:id/dashboard',function(req,res,next){
     Admin.getUnsolvedCount(req.params.id).then(unsolved_count=>{
@@ -50,12 +42,21 @@ router.get('/:id/dashboard',function(req,res,next){
             Admin.getNewCount(req.params.id).then(new_count=>{
             	Admin.getName(req.params.id).then(admin_name=>{
                 Ticket.getAvailableCount().then(available_count=>{
-                  res.json({
-                      name: admin_name[0]['name'],
-                      unsolved:unsolved_count[0]['count'],
-                      unassigned:available_count[0]['count'],
-                      urgent:priority_count[0]['count'],
-                      new: new_count[0]['count']
+                  Admin.getOpenCount(req.params.id).then(open_count=>{
+                    Admin.getPendingCount(req.params.id).then(pending_count=>{
+                      Admin.getSolvedCount(req.params.id).then(solved_count=>{
+                          res.json({
+                              name: admin_name[0]['name'],
+                              unsolved:unsolved_count[0]['count'],
+                              unassigned:available_count[0]['count'],
+                              urgent:priority_count[0]['count'],
+                              new: new_count[0]['count'],
+                              pending: pending_count[0]['count'],
+                              open: open_count[0]['count'],
+                              solved: solved_count[0]['count']
+                          })
+                      })
+                    })
                   })
 
                 });
@@ -63,6 +64,14 @@ router.get('/:id/dashboard',function(req,res,next){
             })
         })
     })
+});
+
+router.get('/:id/requests/urgent', function(req, res, next) {
+  Admin.getUrgentTickets(req.params.id).then(urgentTickets=>{
+    res.json({
+        urgent: urgentTickets
+    })
+  });
 });
 
 router.get('/:id/requests/unsolved', function(req,res,next){
@@ -79,6 +88,30 @@ router.get('/:id/requests/new', function(req, res, next) {
             new: unsolvedTickets
         })
     });
+});
+
+router.get('/:id/requests/open', function(req,res,next){
+  Admin.getOpenTickets(req.params.id).then(openTickets=>{
+    res.json({
+      open: openTickets
+    })
+  })
+})
+
+router.get('/:id/requests/solved', function(req,res,next){
+  Admin.getSolvedTickets(req.params.id).then(openTickets=>{
+    res.json({
+      open: openTickets
+    })
+  })
+})
+
+router.get('/:id/requests/pending', function(req, res, next) {
+  Admin.getPendingTickets(req.params.id).then(pendingTickets=>{
+    res.json({
+        pending: pendingTickets
+    })
+  });
 });
 
 function resError(res, statusCode, message) {
