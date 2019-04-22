@@ -19,29 +19,29 @@ module.exports = {
 		return knex('admin').where('id', id).select('name');
 	},
 	getAllTickets: function(id){
-		return knex('tickets').where('admin_id', id);
+		return knex('tickets').where('admin_id', id).whereNot('status','deleted');
 	},
 	getUnsolvedTickets: function(id){
 		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending');
 	},
 	getUrgentTickets: function(id){
-		return knex('tickets').where('admin_id',id).where('priority',true);
+		return knex('tickets').where('admin_id',id).where('priority',true).whereNot('status','deleted');
 	},
 	getUnsolvedCount: function(id){
 		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending').count();
 	},
 	getPriorityCount: function(id){
-		return knex('tickets').where('admin_id',id).where('priority',true).count();
+		return knex('tickets').where('admin_id',id).where('priority',true).whereNot('status','deleted').count();
 	},
 	getNewCount: function(id){
 		var d = new Date();
 		d.setMinutes(d.getMinutes() - 30);
-		return knex('tickets').where('admin_id',id).where('date_created', '>', d).count('date_created');
+		return knex('tickets').where('admin_id',id).where('date_created', '>', d).whereNot('status','deleted').count('date_created');
 	},
 	getNewTickets: function(id){
 		var d = new Date();
 		d.setMinutes(d.getMinutes() - 30);
-		return knex('tickets').where('admin_id',id).where('date_created', '>', d);
+		return knex('tickets').where('admin_id',id).where('date_created', '>', d).whereNot('status','deleted');
 	},
 	getOpenCount: function(id){
 		return knex('tickets').where('admin_id',id).where('status','open').count();
@@ -60,5 +60,11 @@ module.exports = {
 	},
 	getPendingTickets: function(id){
 		return knex('tickets').where('admin_id',id).where('status','pending');
+	},
+	getDeletedTickets: function(id){
+		return knex('tickets').where('admin_id',id).where('status','deleted');
+	},
+	getDeletedCount:function(id){
+		return knex('tickets').where('admin_id',id).where('status','deleted').count();
 	}
 }

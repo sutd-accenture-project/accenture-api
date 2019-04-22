@@ -51,27 +51,23 @@ router.post('/:id/user/response', function(req, res, next) {
 	})
 });
 
-router.post('/:id/user/response/test', function(req, res, next) {
-	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{
-		var d = new Date();
- 		d.setDate(d.getDate()-5);
-		const response ={
+router.post('/:id/delete',(req,res,next)=>{
+	Ticket.changeTicketStatus(req.params.id,'deleted').then(deleted=>{
+		res.json({
 			ticket_id: req.params.id,
-			message: req.body.message,
-			name: details[0]['requester'],
-			date: d,
-			role: 'user'
-		}
-		Response.insertResponse(response).then(id => {
-		    res.json({
-		        response_id: id,
-		        type: 'user',
-		        response: response,
-		        message: 'User response submitted!'
-		    });
-		});
+			message: 'Ticket deleted!'
+		})
 	})
-});
+})
+
+router.post('/:id/restore',(req,res,next)=>{
+	Ticket.changeTicketStatus(req.params.id,'open').then(restored=>{
+		res.json({
+			ticket_id: req.params.id,
+			message: 'Ticket restored!'
+		})
+	})
+})
 
 router.post('/:id/admin/response', function(req, res, next) {
 	Ticket.getTicketUserNameAdminID(req.params.id).then(details=>{

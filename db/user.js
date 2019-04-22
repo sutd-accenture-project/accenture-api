@@ -24,6 +24,6 @@ module.exports = {
 		return knex('user').where('id',id).select('name','email');
 	},
 	getTickets: function(id){
-		return knex('tickets').where('user_id', id);
+		return knex('tickets').where('user_id', id).whereNot('status','deleted');
 	}
 }

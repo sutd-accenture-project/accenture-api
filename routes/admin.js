@@ -45,6 +45,7 @@ router.get('/:id/dashboard',function(req,res,next){
                   Admin.getOpenCount(req.params.id).then(open_count=>{
                     Admin.getPendingCount(req.params.id).then(pending_count=>{
                       Admin.getSolvedCount(req.params.id).then(solved_count=>{
+                        Admin.getDeletedCount(req.params.id).then(deleted_count=>{
                           res.json({
                               name: admin_name[0]['name'],
                               unsolved:unsolved_count[0]['count'],
@@ -53,8 +54,10 @@ router.get('/:id/dashboard',function(req,res,next){
                               new: new_count[0]['count'],
                               pending: pending_count[0]['count'],
                               open: open_count[0]['count'],
-                              solved: solved_count[0]['count']
+                              solved: solved_count[0]['count'],
+                              deleted: deleted_count[0]['count']
                           })
+                        })
                       })
                     })
                   })
@@ -113,6 +116,14 @@ router.get('/:id/requests/pending', function(req, res, next) {
     })
   });
 });
+
+router.get('/:id/requests/deleted', function(req,res,next){
+  Admin.getDeletedTickets(req.params.id).then(deletedTickets=>{
+    res.json({
+      deleted: deletedTickets
+    })
+  })
+})
 
 function resError(res, statusCode, message) {
   res.status(statusCode);

@@ -5,10 +5,10 @@ module.exports = {
 		return knex('tickets');
 	},
 	getAvailable: function(){
-		return knex('tickets').where('admin_id',null);
+		return knex('tickets').where('admin_id',null).whereNot('status','deleted');
 	},
 	getAvailableCount: function(){
-		return knex('tickets').where('admin_id',null).count();
+		return knex('tickets').where('admin_id',null).whereNot('status','deleted').count();
 	},
 	assignTicket: function(ticket_id,admin__id){
 		return knex('tickets').where('id',ticket_id).update({admin_id: admin__id});
@@ -20,9 +20,9 @@ module.exports = {
 		return knex('admin').where('id', admin_id).select('name');
 	},
 	changeTicketStatus: function(ticket_id,new_status){
-		return knex('tickets').where('id', ticket_id).update({status: new_status})
+		return knex('tickets').where('id', ticket_id).update({status: new_status});
 	},
 	setPriority: function(ticket_id,status){
-		return knex('tickets').where('id',ticket_id).update({priority:status})
+		return knex('tickets').where('id',ticket_id).update({priority:status});
 	}
 }
