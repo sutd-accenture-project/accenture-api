@@ -12,7 +12,9 @@ router.get('/',function(req,res,next){
 
 router.get('/available',function(req,res,next){
 	Ticket.getAvailable().then(avail => {
-      res.json(avail);
+      res.json({
+      	available: avail
+      });
     });
 });
 
