@@ -92,8 +92,11 @@ router.get('/:id/similar', (req,res,next)=>{
 				var indexOfMaxValue = dist_array.reduce((iMax, x, i, dist_array) => x > dist_array[iMax] ? i : iMax, 0);
 
 				Ticket.getSpecificTicket(ticket_id_array[indexOfMaxValue]).then(details=>{
-					res.json({
-						similar: details[0]
+					Ticket.getSpecificTicket(req.params.id).then(original=>{
+						res.json({
+							original: original[0];
+							similar: details[0]
+						})
 					})
 				});
 			} else {
