@@ -101,7 +101,7 @@ router.get('/:id/requests/open', function(req,res,next){
 router.get('/:id/requests/solved', function(req,res,next){
   Admin.getSolvedTickets(req.params.id).then(openTickets=>{
     res.json({
-      open: openTickets
+      solved: openTickets
     })
   })
 })
