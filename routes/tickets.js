@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Ticket = require('../db/ticket');
 const Response = require('../db/response');
+var natural = require('natural');
 
 /* GET tickets listing. */
 router.get('/',function(req,res,next){
@@ -65,6 +66,39 @@ router.post('/:id/restore',(req,res,next)=>{
 		res.json({
 			ticket_id: req.params.id,
 			message: 'Ticket restored!'
+		})
+	})
+})
+
+router.get('/:id/similar', (req,res,next)=>{
+	Ticket.getMessage(req.params.id).then(message=>{
+		var dist_array = [];
+		var ticket_id_array = [];
+		var msg = message[0]['message'];
+
+		Ticket.getUnsolvedAvailable().then(unsolved_avail=>{
+			for(var i = 0; i < unsolved_avail.length; i ++){
+				// calculate distances
+				// can change distance metric if necessary
+				var dist = natural.JaroWinklerDistance(msg, unsolved_avail[i]['message'],false);
+				// min threshold for similarity
+				if (dist > 0.8){
+					dist_array.push(dist);
+					ticket_id_array.push(unsolved_avail[i]['id']);
+				}
+			}
+			// choose 1 similar ticket to display
+			if (dist_array.length > 0){
+				var indexOfMaxValue = dist_array.reduce((iMax, x, i, dist_array) => x > dist_array[iMax] ? i : iMax, 0);
+
+				Ticket.getSpecificTicket(ticket_id_array[indexOfMaxValue]).then(details=>{
+					res.json({
+						similar: details[0]
+					})
+				});
+			} else {
+				res.json("No similar ticket found.");
+			}
 		})
 	})
 })

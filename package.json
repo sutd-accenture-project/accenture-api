@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.0",
     "knex": "^0.16.3",
     "morgan": "~1.9.0",
+    "natural": "^0.6.3",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
     "pg": "^7.8.1"
@@ -24,7 +25,7 @@
   "devDependencies": {
     "nodemon": "^1.18.10"
   },
-  "engines":{
+  "engines": {
     "node": "8.10.0",
     "npm": "6.9.0"
   }

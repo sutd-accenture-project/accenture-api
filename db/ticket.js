@@ -24,5 +24,14 @@ module.exports = {
 	},
 	setPriority: function(ticket_id,status){
 		return knex('tickets').where('id',ticket_id).update({priority:status});
+	},
+	getMessage: function(ticket_id){
+		return knex('tickets').where('id',ticket_id).select('message');
+	},
+	getUnsolvedAvailable: function(){
+		return knex('tickets').where('admin_id',null).whereIn('status', ['open','pending']);
+	},
+	getSpecificTicket: function(ticket_id){
+		return knex('tickets').where('id',ticket_id);
 	}
 }
