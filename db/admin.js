@@ -25,23 +25,23 @@ module.exports = {
 		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending');
 	},
 	getUrgentTickets: function(id){
-		return knex('tickets').where('admin_id',id).where('priority',true).whereNot('status','deleted');
+		return knex('tickets').where('admin_id',id).where('priority',true).whereNot('status','deleted').whereNot('status','solved');
 	},
 	getUnsolvedCount: function(id){
 		return knex('tickets').where('admin_id',id).where('status', 'open').orWhere('status','pending').count();
 	},
 	getPriorityCount: function(id){
-		return knex('tickets').where('admin_id',id).where('priority',true).whereNot('status','deleted').count();
+		return knex('tickets').where('admin_id',id).where('priority',true).whereNot('status','deleted').whereNot('status','solved').count();
 	},
 	getNewCount: function(id){
 		var d = new Date();
 		d.setMinutes(d.getMinutes() - 30);
-		return knex('tickets').where('admin_id',id).where('date_created', '>', d).whereNot('status','deleted').count('date_created');
+		return knex('tickets').where('admin_id',id).where('date_created', '>', d).whereNot('status','deleted').whereNot('status','solved').count('date_created');
 	},
 	getNewTickets: function(id){
 		var d = new Date();
 		d.setMinutes(d.getMinutes() - 30);
-		return knex('tickets').where('admin_id',id).where('date_created', '>', d).whereNot('status','deleted');
+		return knex('tickets').where('admin_id',id).where('date_created', '>', d).whereNot('status','deleted').whereNot('status','solved');
 	},
 	getOpenCount: function(id){
 		return knex('tickets').where('admin_id',id).where('status','open').count();
