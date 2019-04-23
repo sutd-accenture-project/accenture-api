@@ -134,7 +134,13 @@ router.get('/:id/similar', (req,res,next)=>{
 					})
 				});
 			} else {
-				res.json("No similar ticket found.");
+				Ticket.getSpecificTicket(req.params.id).then(original=>{
+					res.json({
+						original: original[0],
+						similar: "No similar ticket found.",
+						tickets_found: 0
+					});
+				})
 			}
 		})
 	})
