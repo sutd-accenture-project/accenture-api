@@ -75,6 +75,7 @@ router.get('/:id/similar', (req,res,next)=>{
 		var dist_array = [];
 		var ticket_id_array = [];
 		var msg = message[0]['message'];
+		var similar_tickets = [];
 
 		Ticket.getAllExceptCurrent(req.params.id).then(unsolved_avail=>{
 			for(var i = 0; i < unsolved_avail.length; i ++){
@@ -92,12 +93,44 @@ router.get('/:id/similar', (req,res,next)=>{
 			if (dist_array.length > 0){
 				var indexOfMaxValue = dist_array.reduce((iMax, x, i, dist_array) => x > dist_array[iMax] ? i : iMax, 0);
 
-				Ticket.getSpecificTicket(ticket_id_array[indexOfMaxValue]).then(details=>{
-					Ticket.getSpecificTicket(req.params.id).then(original=>{
-						res.json({
-							original: original[0],
-							similar: details[0]
-						})
+				Ticket.getSpecificTicket(req.params.id).then(original=>{
+					Ticket.getSpecificTicket(ticket_id_array[indexOfMaxValue]).then(top_ticket=>{
+						similar_tickets.push(top_ticket[0]);
+						dist_array.splice(indexOfMaxValue,1);
+						ticket_id_array.splice(indexOfMaxValue,1);
+
+						if (dist_array.length > 1){
+							indexOfMaxValue = dist_array.reduce((iMax, x, i, dist_array) => x > dist_array[iMax] ? i : iMax, 0);
+							Ticket.getSpecificTicket(ticket_id_array[indexOfMaxValue]).then(second_ticket=>{
+								similar_tickets.push(second_ticket[0]);
+								dist_array.splice(indexOfMaxValue,1);
+								ticket_id_array.splice(indexOfMaxValue,1);
+
+								if (dist_array.length > 2){
+									indexOfMaxValue = dist_array.reduce((iMax, x, i, dist_array) => x > dist_array[iMax] ? i : iMax, 0);
+									Ticket.getSpecificTicket(ticket_id_array[indexOfMaxValue]).then(third_ticket=>{
+										similar_tickets.push(third_ticket[0]);
+										res.json({
+											original: original[0],
+											similar: similar_tickets,
+											tickets_found: similar_tickets.length
+										})
+									})
+								}else{
+									res.json({
+										original: original[0],
+										similar: similar_tickets,
+										tickets_found: similar_tickets.length
+									})
+								}
+							})
+						}else{
+							res.json({
+								original: original[0],
+								similar: similar_tickets,
+								tickets_found: similar_tickets.length
+							})
+						}
 					})
 				});
 			} else {
