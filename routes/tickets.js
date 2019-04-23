@@ -76,11 +76,11 @@ router.get('/:id/similar', (req,res,next)=>{
 		var ticket_id_array = [];
 		var msg = message[0]['message'];
 
-		Ticket.getUnsolvedAvailable().then(unsolved_avail=>{
+		Ticket.getAllExceptCurrent(req.params.id).then(unsolved_avail=>{
 			for(var i = 0; i < unsolved_avail.length; i ++){
 				// calculate distances
 				// can change distance metric if necessary
-				var dist = natural.DamerauLevenshteinDistance(msg, unsolved_avail[i]['message']);
+				var dist = natural.DiceCoefficient(msg, unsolved_avail[i]['message']);
 				console.log(dist);
 				// min threshold for similarity
 				if (dist > 0.5){
