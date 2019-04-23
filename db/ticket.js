@@ -28,8 +28,8 @@ module.exports = {
 	getMessage: function(ticket_id){
 		return knex('tickets').where('id',ticket_id).select('message');
 	},
-	getUnsolvedAvailable: function(){
-		return knex('tickets').where('admin_id',null).whereIn('status', ['open','pending']);
+	getAllExceptCurrent: function(ticket_id){
+		return knex('tickets').whereNot('id',ticket_id);
 	},
 	getSpecificTicket: function(ticket_id){
 		return knex('tickets').where('id',ticket_id);

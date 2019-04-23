@@ -80,7 +80,7 @@ router.get('/:id/similar', (req,res,next)=>{
 			for(var i = 0; i < unsolved_avail.length; i ++){
 				// calculate distances
 				// can change distance metric if necessary
-				var dist = natural.JaroWinklerDistance(msg, unsolved_avail[i]['message'],false);
+				var dist = natural.DamerauLevenshteinDistance(msg, unsolved_avail[i]['message']);
 				console.log(dist);
 				// min threshold for similarity
 				if (dist > 0.5){
