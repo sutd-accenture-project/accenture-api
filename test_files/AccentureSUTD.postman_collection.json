@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "2714bdcd-c8f3-47a4-a332-b9927678084f",
+		"name": "AccentureSUTD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admins",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5059321-6514-4b3a-89b5-5cc8b9c48b38",
+						"exec": [
+							"pm.test(\"Ensure variable id is present for each admin\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('id');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure variable email is present for each admin\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('email');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure variable password is present for each admin\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('password');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure variable name is present for each admin\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('name');",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/admin",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"admin"
+					]
+				},
+				"description": "Testing for admin page database!"
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc48f91d-c96b-497c-9330-d78d35a176d9",
+						"exec": [
+							"pm.test(\"Ensure that variable id is present for each user!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('id');",
+							"    })",
+							"})",
+							"pm.test(\"Ensure that variable email is present for each user!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('email');",
+							"    })",
+							"})",
+							"pm.test(\"Ensure that variable password is present for each user!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('password');",
+							"    })",
+							"})",
+							"pm.test(\"Ensure that variable name is present for each user!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('name');",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/users",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tickets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "adc49cff-7e5b-42aa-8bbe-86035e103b31",
+						"exec": [
+							"pm.test(\"Ensure that variable 'id' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('id');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'subject' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('subject');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'user_id' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('user_id');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'priority' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('priority');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'status' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('status');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'date_created' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('date_created');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'admin_id' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('admin_id');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'message' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('message');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable requester is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('requester');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'topic' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('topic');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable 'user_email' is present in each ticket!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        pm.expect(item).to.have.property('user_email');",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/tickets",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Available Tickets in database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1e86ce58-0b41-4b17-862a-2472961189a8",
+						"exec": [
+							"pm.test(\"Ensure that admin_id is null for a ticket to be available!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        _.each(item, (array) => {",
+							"            pm.expect(array.admin_id).to.eql(null);",
+							"        })",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/tickets/available",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"tickets",
+						"available"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin unsolved tickets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c729667-7369-4959-a479-26a9b47c63ad",
+						"exec": [
+							"pm.test(\"Ensure that unsolved is true for each ticket in /unsolved\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        _.each(item, (array) => {",
+							"            pm.expect(array.status).to.be.oneOf(['open','pending']); ",
+							"            console.log(array);",
+							"        })",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/admin/4/requests/unsolved",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"admin",
+						"4",
+						"requests",
+						"unsolved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin dashboard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7336eeb0-2f05-4d2b-9a32-9eb621c379d8",
+						"exec": [
+							"pm.test(\"Ensure that variable key 'name' is present in dashboard!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable key 'unsolved' is present in dashboard!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('unsolved');",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable key 'unassigned' is present in dashboard!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('unassigned');",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable key 'urgent' is present in dashboard!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('urgent');",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable key 'new' is present in dashboard!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('new');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/admin/4/dashboard",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"admin",
+						"4",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users not in database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64fd5c48-599a-420f-81ec-264f16b154a5",
+						"exec": [
+							"pm.test(\"Checking for users not in database!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.include('User not found.');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/users/999",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users",
+						"999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admins not in database",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "568fea4b-9474-4eac-ada9-0b7a3220034c",
+						"exec": [
+							"pm.test(\"Checking for admins not in database!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.include('Admin Not Found');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/admin/999",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"admin",
+						"999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post invalid email/password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4cfec6ec-e841-4cb6-ba44-edde63610b07",
+						"exec": [
+							"pm.test(\"Checking for invalid email or password / failed login!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    console.log(jsonData);",
+							"    pm.expect(jsonData.error).to.include('Invalid email or password. Please try again.');",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"loginEmail\": \"hello@example.com\",\n\t\"loginPassword\": \"asdasd\"\n}"
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/login/admin",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"login",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Response test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdbc8abb-5e9c-4aa0-b34d-843cce8b02fd",
+						"exec": [
+							"pm.test(\"Ensure that variable id is present for each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('id');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable message is present for each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('message');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable ticket_id is present for each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('ticket_id');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable date is present for each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('date');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable name is present for each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('name');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that variable role is present for each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item).to.have.property('role');",
+							"    })",
+							"})",
+							"",
+							"pm.test(\"Ensure that message is not null in each response!\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    _.each(jsonData, (item) => {",
+							"        console.log(item);",
+							"        pm.expect(item.message).to.not.eql(null);",
+							"    })",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://accenturesutd.herokuapp.com/tickets/1/convo",
+					"protocol": "http",
+					"host": [
+						"accenturesutd",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"tickets",
+						"1",
+						"convo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
