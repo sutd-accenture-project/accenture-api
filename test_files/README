@@ -1,0 +1,5 @@
+Download the postman JSON file and import it either on Postman App or Postman web App
+
+For Test.js, make sure Jest is installed and under package.json
+include "test": "jest" under scripts
+afterwards just run npm test from cmd
